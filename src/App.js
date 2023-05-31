@@ -13,7 +13,8 @@ function App() {
   const [timerPublic,setTimerPublic]=useState(0);
   var timer=timerPublic;
   function reset() {
-    setPaused(!paused);
+    setLapClicked(false);
+    setPaused(false);
     setStarted(false);
     setTimerPublic(0);
     setMinuteHand("00");
@@ -23,14 +24,14 @@ function App() {
   }
   const [paused, setPaused] = useState(false);
   const [started, setStarted] = useState(false);
-
+  const [lapClicked, setLapClicked] = useState(false);
    function pause(){
     setPaused(!paused);
     clearInterval(timerInterval);
    }  
-   function elased()
+   function elapsed()
    {
-    alert("elased");
+    setLapClicked(true);
    }
   function start() {
     setPaused(!paused);
@@ -50,6 +51,7 @@ function App() {
   }
   return (
     <div className="App">
+      <div className='container'>
       <div className='Timer'>
         <CounterComponent value="00"/>:
         <CounterComponent value={minuteHand}/>:
@@ -57,10 +59,19 @@ function App() {
         <CounterComponent value={milliSecondHand}/>
       </div>
       <div className='Controls'>
-        {started?<ButtonComponent onClick={reset} disabled={!started} value="Lap"/>:<ButtonComponent onClick={reset} disabled={!started} value="Reset"/>}
+        {started?<ButtonComponent onClick={paused?elapsed:reset} disabled={!started} value={paused?"Lap":"Reset"}/>:<ButtonComponent onClick={reset} disabled={!started} value="Reset"/>}
         {paused?<ButtonComponent onClick={pause} disabled={false} value="Pause"/>:<ButtonComponent onClick={start}  value={started?"Resume":"Start"}/>}
-        
       </div>
+      </div>
+      <div style={{display:lapClicked?"flex":"none"}} className='LapDetails'>
+        <div className='row'>
+          <p>Lap</p>
+          <p>Lap Times</p>
+          <p>Overall Time </p>
+        </div>
+        <hr/>
+      </div>
+      
     </div>
   );
 }

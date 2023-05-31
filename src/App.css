@@ -3,12 +3,32 @@
   background-color: #343843;
   min-height: 100vh;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
-  row-gap: 70px;
+  flex-wrap: wrap;
+  padding: 1% 1% 1% 1%;
+}
+.container
+{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 800px;
+  row-gap: 50px;
+}
+.LapDetails
+{
+  padding:1% 1% 1% 1% ;
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(18, 18, 18, 0.276);
+  height: 100%;
+  width: 300px;
 }
 .App-link {
   color: #61dafb;
@@ -21,7 +41,7 @@
   align-items: center;
   font-weight: bolder;
   font-size: xx-large;
-  width: 100%;
+  width: 80%;
 }
 .Controls{
   display: flex;
@@ -30,4 +50,16 @@
   align-items: center;
   column-gap: 5%;
   width: 100%;
+}
+.row
+{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  line-height: 0%;
+}
+hr {
+  width: 90%;
 }
