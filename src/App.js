@@ -3,6 +3,7 @@ import './App.css';
 import CounterComponent from './components/CounterComponent/CounterComponent';
 import './components/CounterComponent/CounterComponent.css'
 import ButtonComponent from './components/ButtonComponent/ButtonComponent';
+import LapTimeDataComponent from './components/LapTimeDataComponent/LapTimeDataComponent';
 import './components/ButtonComponent/ButtonComponent.css'
 import { useState } from 'react';
 function App() {
@@ -11,8 +12,12 @@ function App() {
   const [milliSecondHand,setMilliSecondHand]=useState("00");
   const [timerInterval,setTimerInterval]=useState(()=>{});
   const [timerPublic,setTimerPublic]=useState(0);
+  const [lapData,setLapData]=useState([]);
+  const [lapCount,setLapCount]=useState(1);
   var timer=timerPublic;
   function reset() {
+    setLapData([]);
+    setLapCount(1);
     setLapClicked(false);
     setPaused(false);
     setStarted(false);
@@ -32,6 +37,10 @@ function App() {
    function elapsed()
    {
     setLapClicked(true);
+    setLapCount(lapCount+1);
+    let data=lapData;
+    data.push([lapCount,`00:${minuteHand}:${secondHand}.${milliSecondHand}`,`00:${minuteHand}:${secondHand}.${milliSecondHand}`])
+    setLapData(lapData)
    }
   function start() {
     setPaused(!paused);
@@ -70,8 +79,10 @@ function App() {
           <p>Overall Time </p>
         </div>
         <hr/>
+        <div className='LapData'>
+      <LapTimeDataComponent data={lapData}/>
       </div>
-      
+      </div>
     </div>
   );
 }
