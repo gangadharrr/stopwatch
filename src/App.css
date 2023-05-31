@@ -8,14 +8,11 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  row-gap: 70px;
 }
-
-
 .App-link {
   color: #61dafb;
 }
-
-
 .Timer{
   display: flex;
   flex-direction: row;
@@ -24,4 +21,13 @@
   align-items: center;
   font-weight: bolder;
   font-size: xx-large;
+  width: 100%;
+}
+.Controls{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  column-gap: 5%;
+  width: 100%;
 }
