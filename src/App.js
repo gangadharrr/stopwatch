@@ -36,10 +36,15 @@ function App() {
    }  
    function elapsed()
    {
-    setLapClicked(true);
-    setLapCount(lapCount+1);
-    let data=lapData;
-    data.push([lapCount,`00:${minuteHand}:${secondHand}.${milliSecondHand}`,`00:${minuteHand}:${secondHand}.${milliSecondHand}`])
+     setLapClicked(true);
+     setLapCount(lapCount+1);
+     let prevTime=lapData[lapData.length-1];
+     let data=lapData;
+     data.push([lapCount,`00:${minuteHand}:${secondHand}:${milliSecondHand}`,`00:${minuteHand}:${secondHand}:${milliSecondHand}`])
+     prevTime=prevTime[prevTime.length-1].split(":");
+      var a = new Date(2010, 0, 1, 0, parseInt(prevTime[0]), parseInt(prevTime[1]), parseInt(prevTime[2]), parseInt(prevTime[3])); // Current date now.
+      var b = new Date(2010, 0, 1, 0, minuteHand, secondHand, milliSecondHand); 
+     console.log(parseInt((b-a)/(1000))); 
     setLapData(lapData)
    }
   function start() {
@@ -48,7 +53,6 @@ function App() {
     setTimerInterval(setInterval(function() {
         timer+= 1/60;
         setTimerPublic(timer);
-        console.log(timerPublic);
         var msVal = Math.floor((timer - Math.floor(timer))*100);
         var secondVal = Math.floor(timer) - Math.floor(timer/60) * 60;
         var minuteVal = Math.floor(timer/60);
@@ -56,7 +60,7 @@ function App() {
         setSecondHand( secondVal < 10 ? "0" + secondVal.toString() : secondVal);
         setMinuteHand(minuteVal < 10 ? "0" + minuteVal.toString() : minuteVal);
       }, 1000/60)
-      );
+    );
   }
   return (
     <div className="App">
