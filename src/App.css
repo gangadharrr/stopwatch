@@ -19,7 +19,8 @@
   align-items: center;
   height: 100%;
   width: 800px;
-  row-gap: 50px;
+  row-gap: 30px;
+
 }
 .LapDetails
 {
@@ -37,6 +38,7 @@
   width: 300px;
   overflow-x: hidden;
   overflow-y: scroll;
+  scroll-behavior: smooth;
 }
 .App-link {
   color: #61dafb;

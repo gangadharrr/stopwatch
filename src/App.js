@@ -15,6 +15,7 @@ function App() {
   const [lapData,setLapData]=useState([]);
   const [lapCount,setLapCount]=useState(1);
   var timer=timerPublic;
+
   function reset() {
     setLapData([]);
     setLapCount(1);
@@ -34,18 +35,28 @@ function App() {
     setPaused(!paused);
     clearInterval(timerInterval);
    }  
+  
    function elapsed()
    {
+    if(lapClicked)
+    {
+      let prevTime=lapData[lapData.length-1];
+      prevTime=prevTime[prevTime.length-1].split(":");
+       var a = new Date(2010, 0, 1, parseInt(prevTime[0]), parseInt(prevTime[1]), parseInt(prevTime[2]), parseInt(prevTime[3])); 
+       var b = new Date(2010, 0, 1, 0, minuteHand, secondHand, milliSecondHand); 
+    }
+    else
+    {
+      let prevTime='00:00:00:00'.split(':');
+      var a = new Date(2010, 0, 1, 0, parseInt(prevTime[0]), parseInt(prevTime[1]), parseInt(prevTime[2]), parseInt(prevTime[3])); 
+      var b = new Date(2010, 0, 1, 0, minuteHand, secondHand, milliSecondHand); 
+    }
      setLapClicked(true);
      setLapCount(lapCount+1);
-     let prevTime=lapData[lapData.length-1];
      let data=lapData;
-     data.push([lapCount,`00:${minuteHand}:${secondHand}:${milliSecondHand}`,`00:${minuteHand}:${secondHand}:${milliSecondHand}`])
-     prevTime=prevTime[prevTime.length-1].split(":");
-      var a = new Date(2010, 0, 1, 0, parseInt(prevTime[0]), parseInt(prevTime[1]), parseInt(prevTime[2]), parseInt(prevTime[3])); // Current date now.
-      var b = new Date(2010, 0, 1, 0, minuteHand, secondHand, milliSecondHand); 
-     console.log(parseInt((b-a)/(1000))); 
+     data.push([lapCount,`00:${String(parseInt((b-a)/(1000*60))).padStart(2, '0')}:${String(parseInt((b-a)/(1000))).padStart(2, '0')}:${milliSecondHand}`,`00:${minuteHand}:${secondHand}:${milliSecondHand}`])
     setLapData(lapData)
+    setTimeout(()=>{document.getElementById("scroller").scrollTop=document.getElementById("scroller").scrollHeight},0);
    }
   function start() {
     setPaused(!paused);
@@ -77,15 +88,15 @@ function App() {
       </div>
       </div>
       <div style={{display:lapClicked?"flex":"none"}} className='LapDetails'>
-        <div className='row'>
+        <div className='row' style={{fontWeight:"bolder"}}>
           <p>Lap</p>
           <p>Lap Times</p>
           <p>Overall Time </p>
         </div>
         <hr/>
-        <div className='LapData'>
-      <LapTimeDataComponent data={lapData}/>
-      </div>
+        <div className='LapData' id="scroller">
+          <LapTimeDataComponent data={lapData}/>
+        </div>
       </div>
     </div>
   );
