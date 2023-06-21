@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import CounterComponent from './components/CounterComponent/CounterComponent';
 import './components/CounterComponent/CounterComponent.css'
@@ -38,23 +37,25 @@ function App() {
   
    function elapsed()
    {
+    let a;
+    let b;
     if(lapClicked)
     {
       let prevTime=lapData[lapData.length-1];
       prevTime=prevTime[prevTime.length-1].split(":");
-       var a = new Date(2010, 0, 1, parseInt(prevTime[0]), parseInt(prevTime[1]), parseInt(prevTime[2]), parseInt(prevTime[3])); 
-       var b = new Date(2010, 0, 1, 0, minuteHand, secondHand, milliSecondHand); 
+       a = new Date(2010, 0, 1, parseInt(prevTime[0]), parseInt(prevTime[1]), parseInt(prevTime[2]), parseInt(prevTime[3])); 
+       b = new Date(2010, 0, 1, 0, minuteHand, secondHand, milliSecondHand); 
     }
     else
     {
       let prevTime='00:00:00:00'.split(':');
-      var a = new Date(2010, 0, 1, 0, parseInt(prevTime[0]), parseInt(prevTime[1]), parseInt(prevTime[2]), parseInt(prevTime[3])); 
-      var b = new Date(2010, 0, 1, 0, minuteHand, secondHand, milliSecondHand); 
+      a = new Date(2010, 0, 1, 0, parseInt(prevTime[0]), parseInt(prevTime[1]), parseInt(prevTime[2]), parseInt(prevTime[3])); 
+      b = new Date(2010, 0, 1, 0, minuteHand, secondHand, milliSecondHand); 
     }
      setLapClicked(true);
      setLapCount(lapCount+1);
      let data=lapData;
-     data.push([lapCount,`00:${String(parseInt((b-a)/(1000*60))).padStart(2, '0')}:${String(parseInt((b-a)/(1000))).padStart(2, '0')}:${milliSecondHand}`,`00:${minuteHand}:${secondHand}:${milliSecondHand}`])
+     data.push([lapCount,`00:${String(parseInt((b-a)/(1000*60))).padStart(2, '0')}:${String(parseInt(((b-a)/(1000))%60)).padStart(2, '0')}:${milliSecondHand}`,`00:${minuteHand}:${secondHand}:${milliSecondHand}`])
     setLapData(lapData)
     setTimeout(()=>{document.getElementById("scroller").scrollTop=document.getElementById("scroller").scrollHeight},0);
    }
